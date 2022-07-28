@@ -1,4 +1,7 @@
 # DapperDemo
+Contenu:
+* Effectue une requête SQL plusieurs à plusieurs
+
 
 À améliorer: 
 * La liste de participants est actuellement publique (nécessaire pour construire le résultat dans l'infrastructure)

@@ -2,6 +2,9 @@
 Contenu:
 * Effectue une requête SQL plusieurs à plusieurs
 
+Pour utiliser:
+* modifier le appsettings.json pour votre serveur BD et votre instance BD
+* Créer les tables requises (Entreprise, Participant, Relation-Entreprise-Participant)
 
 À améliorer: 
 * La liste de participants est actuellement publique (nécessaire pour construire le résultat dans l'infrastructure)

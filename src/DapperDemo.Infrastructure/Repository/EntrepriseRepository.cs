@@ -47,7 +47,6 @@ namespace DapperDemo.Infrastructure.Repository
                 var participants = g.Select(p => p.Participants.Single()).ToList();
                 if (participants[0] != null)
                     retourEntreprise.Participants = participants;
-//                    groupEntreprise.Participants = participants;
 
                 return retourEntreprise;
             });

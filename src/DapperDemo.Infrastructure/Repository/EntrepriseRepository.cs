@@ -24,8 +24,8 @@ namespace DapperDemo.Infrastructure.Repository
         {
             string SQL = @"SELECT ENT.ID as 'Id', ENT.NOM as 'Nom', ENT.NIM AS 'NIM', PART.ID as 'Id', PART.PRENOM as 'Prenom', PART.NOM as 'Nom', RELA.PourcentageParticipation as 'PourcentageParticipation'
                             FROM Entreprise ENT
-                            INNER JOIN Rela_Entreprise_Participant RELA ON RELA.IdEntreprise = ENT.Id
-                            INNER JOIN Participant PART ON PART.ID = RELA.IdParticipant";
+                            LEFT JOIN Rela_Entreprise_Participant RELA ON RELA.IdEntreprise = ENT.Id
+                            LEFT JOIN Participant PART ON PART.ID = RELA.IdParticipant";
 
             using var con = new SqlConnection(connexionString);
             con.Open();
@@ -42,8 +42,14 @@ namespace DapperDemo.Infrastructure.Repository
             var resultats = entreprises.GroupBy(entreprises => entreprises.Id).Select(g =>
             {
                 var groupEntreprise = g.First();
-                groupEntreprise.Participants = g.Select(entreprises => entreprises.Participants.Single()).ToList();
-                return groupEntreprise;
+                Entreprise retourEntreprise = new Entreprise(groupEntreprise.Id, groupEntreprise.Nom, groupEntreprise.NIM);
+
+                var participants = g.Select(p => p.Participants.Single()).ToList();
+                if (participants[0] != null)
+                    retourEntreprise.Participants = participants;
+//                    groupEntreprise.Participants = participants;
+
+                return retourEntreprise;
             });
 
             return resultats.ToList();
